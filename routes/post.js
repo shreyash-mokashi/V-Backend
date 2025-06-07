@@ -115,15 +115,18 @@ router.post("/comment/:id", auth, async (req, res) => {
       text: req.body.text,
       name: user.name,
       user: req.user.id,
+      date: Date.now(),
+      _id: new mongoose.Types.ObjectId(), // generate an _id for frontend key
     };
-    // user cane comment on any post and add their name, text, and id in comments array
-    
+
     post.comments.unshift(newComment);
     await post.save();
-    res.json(post.comments);
+
+    res.json(newComment);  // Return only the newly added comment
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
+
 module.exports = router;
