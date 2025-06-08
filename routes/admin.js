@@ -4,6 +4,7 @@ const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const User = require("../models/User");
 const Post = require("../models/Post");
+const Profile = require("../models/Profile");
 const mongoose = require("mongoose");
 
 
@@ -41,6 +42,9 @@ router.delete("/user/:id", auth, admin, async (req, res) => {
       {},
       { $pull: { comments: { user: mongoose.Types.ObjectId(userId) } } }
     );
+
+    // Delete user's profile
+    await Profile.deleteOne({ user: userId });
 
     res.json({ msg: "User and related data deleted" });
   } catch (err) {
