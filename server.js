@@ -22,7 +22,7 @@ app.use("/api/posts", require("./routes/post"));
 //post CRUD
 app.use("/api/admin", require("./routes/admin"));
 //Admin endpoints
-app.use("/api/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads"));
 //upload images
 app.use("/api/upload", require("./routes/upload"));
 //provide uploaded files statically
